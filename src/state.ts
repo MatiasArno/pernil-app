@@ -1,21 +1,34 @@
 abstract class State {
 	private static _data: {};
-	private static _listeners: any[];
+	private static _listeners: any[] = [];
+	private static _mainWorkArea: string = 'dashboard';
+
+	private static _executeListeners() {
+		for (const cb of State._listeners) {
+			cb();
+		}
+	}
 
 	static async init() {
 		// Conexión con RTDB
+	}
+
+	static set setState(newState: any) {
+		State._data = newState;
+		State._executeListeners();
+	}
+	
+	static set setMainWorkArea(area: string) {
+		State._mainWorkArea = area;
+		State._executeListeners();
 	}
 
 	static get getState() {
 		return State._data;
 	}
 
-	set setState(newState: Object) {
-		State._data = newState as any;
-
-		for (const cb of State._listeners) {
-			cb();
-		}
+	static get getMainWorkArea() {
+		return State._mainWorkArea;
 	}
 
 	static subscribe(callback: (any: any) => any) {

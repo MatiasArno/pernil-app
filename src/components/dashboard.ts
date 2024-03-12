@@ -26,7 +26,8 @@ class Dashboard extends HTMLElement {
 				justify-content: center;
 				width: 100%;
 				height: 100%;
-				background-color: rgba(255, 255, 255, 0.72);
+				background-color: rgba(255, 255, 255, 0.207);
+				border: 2px solid white;
 				border-radius: 27px;
 			}
 		`;

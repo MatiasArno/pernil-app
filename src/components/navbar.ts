@@ -1,3 +1,5 @@
+import State from '../state';
+
 class Navbar extends HTMLElement {
 	shadow = this.attachShadow({ mode: 'open' });
 
@@ -28,7 +30,7 @@ class Navbar extends HTMLElement {
 				width: 100%;
 				height: 100%;
 				padding: 0 27px;
-				background-color: rgba(255, 255, 255, 0.72);
+				background-color: rgba(255, 255, 255, 0.63);
 				border-radius: 27px;
 			}
 
@@ -37,12 +39,17 @@ class Navbar extends HTMLElement {
 				font-weight: bold;
 				padding: 0 27px 0 0;
 				flex-grow: 1;
+				cursor: pointer;
+			}
+
+			navbar .logo:hover {
+				color: steelblue;
 			}
 			
 			ul {
 				display: flex;
 				justify-content: space-between;
-				font-size: 30.6px;
+				font-size: 27.9px;
 				list-style: none;
 				flex-grow: 1;
 			}
@@ -52,7 +59,7 @@ class Navbar extends HTMLElement {
 			}
 
 			ul li:hover {
-				font-weight: bold;
+				color: steelblue;
 			}
 		`;
 
@@ -67,7 +74,7 @@ class Navbar extends HTMLElement {
 				<div class="logo">${name}</div>
 
 				<ul>
-					<li>Categorías</li>
+					<li>Categorias</li>
 					<li>Compras</li>
 					<li>Ventas</li>
 				</ul>
@@ -76,10 +83,18 @@ class Navbar extends HTMLElement {
 	}
 
 	listenListeners() {
+		const logoEl = this.shadow.querySelector('.logo') as HTMLElement;
 		const items = this.shadow.querySelectorAll('li');
-		const callback = (data: any) => console.log(data.target);
+
+		const uploadDashboard = () => (State.setMainWorkArea = 'dashboard');
+
+		const callback = (data: any) => {
+			if (data.target.innerHTML == 'Categorias')
+				State.setMainWorkArea = 'categories';
+		};
 
 		items.forEach((e) => e.addEventListener('click', callback));
+		logoEl.addEventListener('click', uploadDashboard);
 	}
 }
 

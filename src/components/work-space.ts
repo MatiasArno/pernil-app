@@ -23,13 +23,36 @@ class WorkSpace extends HTMLElement {
 			.workspace {
 				display: flex;
 				align-items: center;
-				justify-content: center;
+				justify-content: space-evenly;
 				width: 100%;
 				height: 100%;
-				background-color: rgba(255, 255, 255, 0.72);
+				background-color: rgba(255, 255, 255, 0.207);
+				border: 2px solid white;
 				border-radius: 27px;
 			}
-		`;
+			
+			.workspace div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				width: 200px;
+				height: 90px;
+				font-size: 24px;
+				font-weight: bold;
+
+				color: white;
+				background-color: rgba(255, 255, 255, 0.306);
+				border-radius: 18px;
+
+				cursor: pointer;
+			}
+
+			.workspace div:hover {
+				background-color: rgba(255, 255, 255, 0.207);
+				border: 2px solid white;
+			}
+		`;	
 
 		this.shadow.appendChild(style);
 	}
@@ -40,6 +63,7 @@ class WorkSpace extends HTMLElement {
 				<div>Productos</div>
 				<div>Insumos</div>
 				<div>Servicios</div>
+				<div>Salarios</div>
 			</div>
 		`;
 	}

@@ -13,7 +13,7 @@ class LoginPage extends HTMLElement {
 	render() {
 		this.innerHTML = `
             <main class="login__container">
-                <h1 class="login__title"> PERNIL APP </h1>
+                <h1 class="login__title"> P E R N I L </h1>
                 
                 <form class="login__form" autocomplete="off">                
                     <input type="name" name="username" placeholder="U S E R N A M E" required>
