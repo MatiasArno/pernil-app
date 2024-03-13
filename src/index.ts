@@ -7,6 +7,7 @@ import './pages/home';
 import './components/navbar';
 import './components/dashboard';
 import './components/work-space';
+import './components/products';
 
 (async function main() {
 	await State.init();

@@ -91,7 +91,7 @@ login-page {
 }
 
 .login__form button:hover {
-	background-color: #e75454;
+	background-color: #2f7fe8;
 }
 
 /* HOME PAGE */
@@ -117,6 +117,7 @@ home-page {
 }
 
 .home__container dash-board,
-work-space {
+work-space,
+products-space {
 	grid-row: 2 / 5;
 }

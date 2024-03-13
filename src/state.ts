@@ -1,11 +1,12 @@
 abstract class State {
 	private static _data: {};
 	private static _listeners: any[] = [];
-	private static _mainWorkArea: string = 'dashboard';
+	private static _mainWorkArea: string = 'categories';
 
 	private static _executeListeners() {
 		for (const cb of State._listeners) {
 			cb();
+			console.log('Callbacks', cb);
 		}
 	}
 
@@ -17,7 +18,7 @@ abstract class State {
 		State._data = newState;
 		State._executeListeners();
 	}
-	
+
 	static set setMainWorkArea(area: string) {
 		State._mainWorkArea = area;
 		State._executeListeners();

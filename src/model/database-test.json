@@ -1,0 +1,23 @@
+{
+	"insumos": [],
+	"servicios": [],
+	"productos": [
+		{
+			"category": "transporte",
+			"name": "combustible"
+		},
+		{
+			"category": "transporte",
+			"name": "service"
+		},
+		{
+			"category": "energia",
+			"name": "luz"
+		},
+		{
+			"category": "energia",
+			"name": "gas"
+		}
+	],
+	"salarios": []
+}

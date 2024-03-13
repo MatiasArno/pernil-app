@@ -1,3 +1,5 @@
+import State from '../state';
+
 class WorkSpace extends HTMLElement {
 	shadow = this.attachShadow({ mode: 'open' });
 
@@ -8,6 +10,7 @@ class WorkSpace extends HTMLElement {
 	connectedCallback() {
 		this.render();
 		this.addStyles();
+		this.listenListeners();
 	}
 
 	addStyles() {
@@ -52,7 +55,7 @@ class WorkSpace extends HTMLElement {
 				background-color: rgba(255, 255, 255, 0.207);
 				border: 2px solid white;
 			}
-		`;	
+		`;
 
 		this.shadow.appendChild(style);
 	}
@@ -60,12 +63,21 @@ class WorkSpace extends HTMLElement {
 	render() {
 		this.shadow.innerHTML = `
 			<div class="workspace"> 
-				<div>Productos</div>
-				<div>Insumos</div>
-				<div>Servicios</div>
-				<div>Salarios</div>
+				<div class=categories>Insumos</div>
+				<div class=categories>Servicios</div>
+				<div class=categories>Productos</div>
+				<div class=categories>Salarios</div>
 			</div>
 		`;
+	}
+
+	listenListeners() {
+		const categoriesElements = this.shadow.querySelectorAll('.categories');
+		categoriesElements.forEach((element) =>
+			element.addEventListener('click', () => {
+				State.setMainWorkArea = element.innerHTML.toLowerCase();
+			})
+		);
 	}
 }
 

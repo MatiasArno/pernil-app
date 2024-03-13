@@ -16,6 +16,7 @@ class HomePage extends HTMLElement {
 		const componentSelector = {
 			dashboard: '<dash-board></dash-board>',
 			categories: '<work-space></work-space>',
+			productos: '<products-space></products-space>',
 		};
 
 		this.innerHTML = `
