@@ -27,6 +27,7 @@ class Navbar extends HTMLElement {
 			navbar {
 				display: flex;
 				align-items: center;
+				justify-content: space-between;
 				width: 100%;
 				height: 100%;
 				padding: 0 27px;
@@ -37,8 +38,6 @@ class Navbar extends HTMLElement {
 			navbar .logo {
 				font-size: 36px;
 				font-weight: bold;
-				padding: 0 27px 0 0;
-				flex-grow: 1;
 				cursor: pointer;
 			}
 
@@ -48,13 +47,12 @@ class Navbar extends HTMLElement {
 			
 			ul {
 				display: flex;
-				justify-content: space-between;
 				font-size: 27.9px;
 				list-style: none;
-				flex-grow: 1;
 			}
 
 			ul li {
+				margin: 0 18px;
 				cursor: pointer;
 			}
 
@@ -74,7 +72,6 @@ class Navbar extends HTMLElement {
 				<div class="logo">${name}</div>
 
 				<ul>
-					<li>Categorias</li>
 					<li>Compras</li>
 					<li>Ventas</li>
 				</ul>
@@ -86,15 +83,13 @@ class Navbar extends HTMLElement {
 		const logoEl = this.shadow.querySelector('.logo') as HTMLElement;
 		const items = this.shadow.querySelectorAll('li');
 
-		const uploadDashboard = () => (State.setMainWorkArea = 'dashboard');
-
-		const callback = (data: any) => {
-			if (data.target.innerHTML == 'Categorias')
-				State.setMainWorkArea = 'categories';
+		const goToSection = (data: any) => {
+			const sectionName = data.target.innerHTML.toLowerCase().trim();
+			State.setMainWorkArea = sectionName;
 		};
 
-		items.forEach((e) => e.addEventListener('click', callback));
-		logoEl.addEventListener('click', uploadDashboard);
+		items.forEach((e) => e.addEventListener('click', goToSection));
+		logoEl.addEventListener('click', goToSection);
 	}
 }
 

@@ -1,3 +1,5 @@
+import State from '../state';
+
 class Products extends HTMLElement {
 	shadow = this.attachShadow({ mode: 'open' });
 
@@ -112,11 +114,7 @@ class Products extends HTMLElement {
 				<div class=background>P R O D U C T O S</div>
 
 				<div class=products>
-					<div class=categories>ABCD</div>
-					<div class=categories>BCDA</div>
-					<div class=categories>BCDA</div>
-					<div class=categories>CDAB</div>
-					<div class=categories>DABC</div>
+					Nada por aqui...
 				</div>
 
 				<div class=button> Crear </div>

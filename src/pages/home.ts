@@ -15,13 +15,12 @@ class HomePage extends HTMLElement {
 
 		const componentSelector = {
 			dashboard: '<dash-board></dash-board>',
-			categories: '<work-space></work-space>',
 			productos: '<products-space></products-space>',
 		};
 
 		this.innerHTML = `
 			<section class="home__container">
-				<nav-bar> PERNIL </nav-bar>
+				<nav-bar> DASHBOARD </nav-bar>
 
 				${componentSelector[currentWorkArea]}
 			</section>

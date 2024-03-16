@@ -1,3 +1,5 @@
+import State from '../state';
+
 class Dashboard extends HTMLElement {
 	shadow = this.attachShadow({ mode: 'open' });
 
@@ -8,6 +10,7 @@ class Dashboard extends HTMLElement {
 	connectedCallback() {
 		this.render();
 		this.addStyles();
+		this.listenListeners();
 	}
 
 	addStyles() {
@@ -20,15 +23,37 @@ class Dashboard extends HTMLElement {
 				box-sizing: border-box;
 			}
 
-			.dashboard {
+			.workspace {
 				display: flex;
 				align-items: center;
-				justify-content: center;
+				justify-content: space-evenly;
 				width: 100%;
 				height: 100%;
 				background-color: rgba(255, 255, 255, 0.207);
 				border: 2px solid white;
 				border-radius: 27px;
+			}
+			
+			.workspace div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				width: 200px;
+				height: 90px;
+				font-size: 24px;
+				font-weight: bold;
+
+				color: white;
+				background-color: rgba(255, 255, 255, 0.306);
+				border-radius: 18px;
+
+				cursor: pointer;
+			}
+
+			.workspace div:hover {
+				background-color: rgba(255, 255, 255, 0.207);
+				border: 2px solid white;
 			}
 		`;
 
@@ -37,10 +62,22 @@ class Dashboard extends HTMLElement {
 
 	render() {
 		this.shadow.innerHTML = `
-			<div class="dashboard"> 
-				D A S H B O A R D
+			<div class="workspace"> 
+				<div class=categories>Productos</div>
+				<div class=categories>Combos</div>
+				<div class=categories>Servicios</div>
+				<div class=categories>Salarios</div>
 			</div>
 		`;
+	}
+
+	listenListeners() {
+		const categoriesElements = this.shadow.querySelectorAll('.categories');
+		categoriesElements.forEach((element) =>
+			element.addEventListener('click', () => {
+				State.setMainWorkArea = element.innerHTML.toLowerCase();
+			})
+		);
 	}
 }
 
