@@ -50,13 +50,13 @@ class Products extends HTMLElement {
 				z-index: 0;
 			}
 
-			.main .products {
+			.main .categories {
 				display: flex;
 
 				z-index: 101;
 			}
 			
-			.main .products .categories {
+			.main .categories .categories {
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -103,6 +103,14 @@ class Products extends HTMLElement {
 				background-color: rgba(255, 255, 255, 0);
 				color: white;
 			}
+
+			input-modal {
+				width: 250px;
+				height: 250px;
+
+				padding: 15px;
+				border: 2px dashed yellow;
+			}
 		`;
 
 		this.shadow.appendChild(style);
@@ -113,8 +121,8 @@ class Products extends HTMLElement {
 			<section class="main">
 				<div class=background>P R O D U C T O S</div>
 
-				<div class=products>
-					Nada por aqui...
+				<div class=categories>
+					<input-modal></input-modal>
 				</div>
 
 				<div class=button> Crear </div>
@@ -124,6 +132,7 @@ class Products extends HTMLElement {
 
 	listenListeners() {
 		const categoriesElements = this.shadow.querySelectorAll('.categories');
+
 		const createButton = this.shadow.querySelector(
 			'.button'
 		) as HTMLElement;
