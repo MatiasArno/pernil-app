@@ -24,15 +24,43 @@ class InputModal extends HTMLElement {
 			}
 			
 			form {
+				position: relative;
 				display: flex;
+				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				width: 100%;
 				height: 100%;
 				font-weight: bolder;
-				color: #2c5364;
 				border-radius: 27px 0 27px 0;
 				border: 2px solid white;
+			}
+
+			form .input {
+				width: 90%;
+				height: 36px;
+			}
+
+			form div {
+				position: absolute;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: white;
+				width: 100%;
+				height: 45px;
+				border-bottom: 2px solid white;
+				top: 0;
+			}
+
+			form .button {
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 45px;
+				color: #2c5364;
+				border: none;
+				border-radius: 0 0 27px 0;
 			}
 		`;
 
@@ -42,8 +70,12 @@ class InputModal extends HTMLElement {
 	render() {
 		this.shadow.innerHTML = `
 			<form name=categoryName class=categoryNameModal>
-				<input type=text placeholder=Nombre required />
-				<input type=submit value=Listo />
+				<div>
+					<h3 class=title> Nueva categoría </h3>
+				</div>
+
+				<input type=text placeholder=Nombre required class=input />
+				<input type=submit value=Listo class=button />
 			</form>
 		`;
 	}
