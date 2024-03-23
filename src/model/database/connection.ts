@@ -26,4 +26,14 @@ const database = getDatabase();
 const databaseRef = ref(getDatabase());
 const getDBRef = (path: string) => ref(database, path);
 
-export { getDBRef, database, databaseRef, set, onValue, child, get, update, push };
+export {
+	getDBRef,
+	database,
+	databaseRef,
+	set,
+	onValue,
+	child,
+	get,
+	update,
+	push,
+};

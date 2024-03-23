@@ -32,35 +32,64 @@ class InputModal extends HTMLElement {
 				width: 100%;
 				height: 100%;
 				font-weight: bolder;
-				border-radius: 27px 0 27px 0;
+				border-radius: 27px;
 				border: 2px solid white;
 			}
 
 			form .input {
 				width: 90%;
 				height: 36px;
+				height: 45px;
+				outline: none;
+				border: none;
+				background-color: rgba(255, 255, 255, 0.144);
+				color: white;
+				font-size: 18px;
+				text-align: center;
+			}
+
+			form .input::placeholder {
+				color: rgba(255, 255, 255, 0.63);
+			}
+
+			form .input:focus {
+				background-color: rgba(255, 255, 255, 0.27);
 			}
 
 			form div {
-				position: absolute;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				color: white;
-				width: 100%;
-				height: 45px;
-				border-bottom: 2px solid white;
+				position: absolute;
 				top: 0;
+				padding-top: 18px;
+				width: 100%;
+
+				font-size: 21px;
+				font-weight: bolder;
+				color: white;
 			}
 
 			form .button {
 				position: absolute;
-				bottom: 0;
+				padding: 3px 0;
+				bottom: -2px;
 				width: 100%;
-				height: 45px;
+
+				background-color: white;
+				font-size: 54px;
+				font-weight: bolder;
 				color: #2c5364;
+
 				border: none;
-				border-radius: 0 0 27px 0;
+				border-top: 2px solid white;
+				border-radius: 0 0 27px 27px;
+				cursor: pointer;
+			}
+
+			form .button:hover {
+				background-color: rgba(255, 255, 255, 0);
+				color: white;
 			}
 		`;
 
@@ -69,18 +98,24 @@ class InputModal extends HTMLElement {
 
 	render() {
 		this.shadow.innerHTML = `
-			<form name=categoryName class=categoryNameModal>
+			<form class=categoryNameModal>
 				<div>
 					<h3 class=title> Nueva categoría </h3>
 				</div>
 
-				<input type=text placeholder=Nombre required class=input />
-				<input type=submit value=Listo class=button />
+				<input type=text name=categoryName placeholder=Nombre required class=input />
+				<input type=submit value=✓ class=button />
 			</form>
 		`;
 	}
 
 	listenListeners() {
+		const formEl = this.shadow.querySelector('form') as HTMLElement;
+
+		formEl.addEventListener('submit', (e: any) => {
+			e.preventDefault();
+			console.log(e.target.categoryName.value);
+		});
 	}
 }
 

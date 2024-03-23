@@ -49,14 +49,16 @@ class Products extends HTMLElement {
 
 				z-index: 0;
 			}
-
+			
 			.main .categories {
 				display: flex;
+				justify-content: center;
+				align-items: center;
 
 				z-index: 101;
 			}
-			
-			.main .categories .categories {
+
+			.main .categories .category {
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -69,13 +71,8 @@ class Products extends HTMLElement {
 				color: white;
 				background-color: rgba(255, 255, 255, 0.306);
 				border-radius: 18px;
-
+				
 				cursor: pointer;
-			}
-
-			.main .categories:hover {
-				background-color: rgba(255, 255, 255, 0.207);
-				border: 2px solid white;
 			}
 
 			.main .button {
@@ -99,17 +96,78 @@ class Products extends HTMLElement {
 				cursor: pointer;
 			}
 
+			form {
+				position: relative;
+				display: none;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 300px;
+				height: 300px;
+				font-weight: bolder;
+				border-radius: 27px;
+				border: 2px solid white;
+			}
+
+			form .input {
+				width: 90%;
+				height: 36px;
+				height: 45px;
+				outline: none;
+				border: none;
+				background-color: rgba(255, 255, 255, 0.144);
+				color: white;
+				font-size: 18px;
+				text-align: center;
+			}
+
+			form .input::placeholder {
+				color: rgba(255, 255, 255, 0.63);
+			}
+
+			form .input:focus {
+				background-color: rgba(255, 255, 255, 0.27);
+			}
+
+			form div {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				top: 0;
+				padding-top: 18px;
+				width: 100%;
+
+				font-size: 21px;
+				font-weight: bolder;
+				color: white;
+			}
+
+			form .formButton {
+				position: absolute;
+				padding: 3px 0;
+				bottom: -2px;
+				width: 100%;
+
+				background-color: white;
+				font-size: 54px;
+				font-weight: bolder;
+				color: #2c5364;
+
+				border: none;
+				border-top: 2px solid white;
+				border-radius: 0 0 27px 27px;
+				cursor: pointer;
+			}
+
 			.main .button:hover {
 				background-color: rgba(255, 255, 255, 0);
 				color: white;
 			}
 
-			input-modal {
-				width: 250px;
-				height: 250px;
-
-				padding: 15px;
-				border: 2px dashed yellow;
+			.main .formButton:hover {
+				background-color: rgba(255, 255, 255, 0);
+				color: white;
 			}
 		`;
 
@@ -121,8 +179,17 @@ class Products extends HTMLElement {
 			<section class="main">
 				<div class=background>P R O D U C T O S</div>
 
+				<form class=categoryNameModal>
+					<div>
+						<h3 class=title> Nueva categoría </h3>
+					</div>
+	
+					<input type=text name=categoryName placeholder=Nombre required class=input />
+					<input type=submit value=✓ class=formButton />
+				</form>
+
 				<div class=categories>
-					<input-modal></input-modal>
+					${(() => `<div class=category> TEST </div>`)()}
 				</div>
 
 				<div class=button> Crear </div>
@@ -131,20 +198,27 @@ class Products extends HTMLElement {
 	}
 
 	listenListeners() {
-		const categoriesElements = this.shadow.querySelectorAll('.categories');
+		const categoriesModalEl = this.shadow.querySelector(
+			'.categoryNameModal'
+		) as HTMLElement;
 
 		const createButton = this.shadow.querySelector(
 			'.button'
 		) as HTMLElement;
 
-		const callback = (element: any) =>
-			console.log(element.target.innerHTML);
+		const formEl = this.shadow.querySelector('form') as HTMLElement;
 
-		categoriesElements.forEach((element) =>
-			element.addEventListener('click', callback)
-		);
+		const showModal = () => (categoriesModalEl.style.display = 'flex');
+		createButton.addEventListener('click', showModal);
 
-		createButton.addEventListener('click', callback);
+		formEl.addEventListener('submit', (e: any) => {
+			e.preventDefault();
+
+			const categoryName = e.target.categoryName.value;
+			const createdCategory = State.createNewCategory(categoryName);
+			categoriesModalEl.style.display = 'none';
+			e.target.categoryName.value = '';
+		});
 	}
 }
 
