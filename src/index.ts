@@ -6,8 +6,11 @@ import './router';
 import './pages/login';
 import './pages/home';
 import './components/navbar';
+import './components/custom-grid';
 import './components/dashboard';
 import './components/products';
+import './components/product';
+
 // import './components/input-modal';
 
 (async function main() {

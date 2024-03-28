@@ -1,4 +1,6 @@
-class Products extends HTMLElement {
+import State from '../state';
+
+class Product extends HTMLElement {
 	shadow = this.attachShadow({ mode: 'open' });
 
 	constructor() {
@@ -6,9 +8,11 @@ class Products extends HTMLElement {
 	}
 
 	connectedCallback() {
+		console.log(location.pathname);
+
 		this.render();
 		this.addStyles();
-		this.listenCategoriesEvents();
+		this.listenItemsEvents();
 	}
 
 	addStyles() {
@@ -48,7 +52,7 @@ class Products extends HTMLElement {
 				z-index: 0;
 			}
 			
-			.main .categories {
+			.main .products {
 				width: calc(100% - 306px);
 				height: calc(100% - 390px);
 
@@ -62,24 +66,24 @@ class Products extends HTMLElement {
 	render() {
 		this.shadow.innerHTML = `
 			<section class="main">
-				<div class=background>P R O D U C T O S</div>
+				<div class=background>P R O D U C T O S | CARNES</div>
 
-				<div class=categories>
-					<custom-grid size=3x2 content=Carnes,Verduras,Especias,Panificados,Salsas></custom-grid>
+				<div class=products>
+					<custom-grid size=3x3 content=A,B,C,D,E,F,G,H,I></custom-grid>
 				</div>
 			</section>
 		`;
 	}
 
-	listenCategoriesEvents() {
-		const categoriesElements = this.shadow.querySelectorAll(
-			'.category'
-		) as NodeList;
+	listenItemsEvents() {
+		const items = this.shadow.querySelectorAll('.items') as NodeList;
 
-		categoriesElements.forEach((element) =>
-			element.addEventListener('click', (e) => console.log(e.target))
+		items.forEach((element) =>
+			element.addEventListener('click', (e: any) =>
+				console.log(e.target.innerHTML)
+			)
 		);
 	}
 }
 
-customElements.define('products-component', Products);
+customElements.define('custom-product', Product);
