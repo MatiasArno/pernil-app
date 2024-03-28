@@ -5,6 +5,9 @@ const getCreatedCategories = () => {
 	const categoriesRef = getDBRef('categories');
 
 	onValue(categoriesRef, (snapshot) => {
+		if (!snapshot.exists())
+			return (State.setCategories = ['Nada por aquí....']);
+
 		const data = snapshot.val();
 		const categories = Object.values(data) as string[];
 

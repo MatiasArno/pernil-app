@@ -10,7 +10,8 @@ class Products extends HTMLElement {
 	connectedCallback() {
 		this.render();
 		this.addStyles();
-		this.listenListeners();
+		this.listenModalEvents();
+		this.listenCategoriesEvents();
 	}
 
 	addStyles() {
@@ -51,9 +52,16 @@ class Products extends HTMLElement {
 			}
 			
 			.main .categories {
-				display: flex;
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				grid-gap: 60px;
 				justify-content: center;
 				align-items: center;
+
+				width: calc(100% - 90px);
+				height: calc(100% - 360px);
+
+				overflow: auto;
 
 				z-index: 101;
 			}
@@ -63,16 +71,21 @@ class Products extends HTMLElement {
 				justify-content: center;
 				align-items: center;
 
-				width: 200px;
-				height: 90px;
+				width: 100%;
+				height: 100%;
 				font-size: 24px;
 				font-weight: bold;
+				text-align: center;
 
 				color: white;
-				background-color: rgba(255, 255, 255, 0.306);
+				background-color: rgba(255, 255, 255, 0.27);
 				border-radius: 18px;
 				
 				cursor: pointer;
+			}
+
+			.main .categories .category:hover {
+				background-color: rgba(255, 255, 255, 0.45);
 			}
 
 			.main .button {
@@ -96,8 +109,19 @@ class Products extends HTMLElement {
 				cursor: pointer;
 			}
 
+			.formBackground {
+				position: absolute;
+				display: none;
+
+				width: 100%;
+				height: 100%;
+				border-radius: 27px;
+	
+				z-index: 199;
+			}
+
 			form {
-				position: relative;
+				position: absolute;
 				display: none;
 				flex-direction: column;
 				justify-content: center;
@@ -107,6 +131,10 @@ class Products extends HTMLElement {
 				font-weight: bolder;
 				border-radius: 27px;
 				border: 2px solid white;
+
+				backdrop-filter: blur(9px);
+
+				z-index: 200;
 			}
 
 			form .input {
@@ -175,9 +203,13 @@ class Products extends HTMLElement {
 	}
 
 	render() {
+		const categories = State.getCategories;
+
 		this.shadow.innerHTML = `
 			<section class="main">
 				<div class=background>P R O D U C T O S</div>
+				
+				<div class=formBackground></div>
 
 				<form class=categoryNameModal>
 					<div>
@@ -189,7 +221,12 @@ class Products extends HTMLElement {
 				</form>
 
 				<div class=categories>
-					${(() => `<div class=category> TEST </div>`)()}
+					${categories
+						.map(
+							(category) =>
+								`<div class=category> ${category} </div>`
+						)
+						.join(' ')}
 				</div>
 
 				<div class=button> Crear </div>
@@ -197,10 +234,16 @@ class Products extends HTMLElement {
 		`;
 	}
 
-	listenListeners() {
+	listenModalEvents() {
 		const categoriesModalEl = this.shadow.querySelector(
 			'.categoryNameModal'
 		) as HTMLElement;
+
+		const modalBackgroundEl = this.shadow.querySelector(
+			'.formBackground'
+		) as HTMLElement;
+
+		const inputEl = this.shadow.querySelector('.input') as HTMLElement;
 
 		const createButton = this.shadow.querySelector(
 			'.button'
@@ -208,17 +251,30 @@ class Products extends HTMLElement {
 
 		const formEl = this.shadow.querySelector('form') as HTMLElement;
 
-		const showModal = () => (categoriesModalEl.style.display = 'flex');
-		createButton.addEventListener('click', showModal);
+		createButton.addEventListener('click', () => {
+			categoriesModalEl.style.display = 'flex';
+			modalBackgroundEl.style.display = 'flex';
+			inputEl.focus();
+		});
 
 		formEl.addEventListener('submit', (e: any) => {
 			e.preventDefault();
 
 			const categoryName = e.target.categoryName.value;
-			const createdCategory = State.createNewCategory(categoryName);
+			State.createNewCategory(categoryName);
 			categoriesModalEl.style.display = 'none';
 			e.target.categoryName.value = '';
 		});
+	}
+
+	listenCategoriesEvents() {
+		const categoriesElements = this.shadow.querySelectorAll(
+			'.category'
+		) as NodeList;
+
+		categoriesElements.forEach((element) =>
+			element.addEventListener('click', (e) => console.log(e.target))
+		);
 	}
 }
 

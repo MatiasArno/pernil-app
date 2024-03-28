@@ -8,7 +8,7 @@ import './pages/home';
 import './components/navbar';
 import './components/dashboard';
 import './components/products';
-import './components/input-modal';
+// import './components/input-modal';
 
 (async function main() {
 	await State.init();
